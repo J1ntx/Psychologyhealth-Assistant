@@ -34,24 +34,33 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { logout } from '../api/admin'
 const router = useRouter()
 const route = useRoute()
-const handleCommand = (command) => {
+const handleCommand = async (command) => {
   if (command === 'logout') {
-    // 退出登录逻辑
-    ElMessageBox.confirm('确认退出登录吗?','提示',{
-      confirmButtonText:'确定',
-      cancelButtonText:'取消',
-      type:'waring'
-    }).then(async ()=>{
+    try {
+      // 退出登录逻辑
+      await ElMessageBox.confirm('确认退出登录吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+
       // 确认退出登录
       await logout()
       localStorage.removeItem('token')
       localStorage.removeItem('userInfo')
       router.push('/auth/login')
       ElMessage({
-        message:'退出成功',
-        type:'success'
+        message: '退出成功',
+        type: 'success'
       })
-    })
+    } catch (error) {
+      if (error !== 'cancel' && error !== 'close') {
+        ElMessage({
+          message: '退出失败，请稍后重试',
+          type: 'error'
+        })
+      }
+    }
   }
 }
 // 切换侧边栏折叠状态
