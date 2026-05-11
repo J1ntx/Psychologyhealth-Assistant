@@ -162,6 +162,12 @@ npm run build
 npm run preview
 ```
 
+## 测试账号说明
+
+- 管理员账号：`admin`
+- 管理员密码：`123456`
+- 普通用户账号：可通过注册页自行注册
+
 ## 权限说明
 
 项目通过本地存储中的 `token` 和 `userInfo.userType` 控制页面访问权限：
