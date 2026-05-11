@@ -1,4 +1,4 @@
-# 心理健康 AI 助手前端
+# 心理健康 AI 助手
 
 一个基于 `Vue 3`、`Vite` 和 `Element Plus` 的心理健康平台前端项目，包含用户端与后台管理端两套界面。
 
@@ -113,7 +113,7 @@ npm install
 ```
 
 ### 2. 配置环境变量
-
+(根目录已存在可忽略此步)
 在项目根目录创建 `.env.local`：
 
 ```env
@@ -169,7 +169,8 @@ npm run preview
 
 
 ## 注意事项
-
+.env.local 文件用于配置后端接口前缀地址和图片访问前缀地址。
+如需访问后端接口文档，请搜索'https://xsl1e23zpk.apifox.cn/'
 ## License
 
 MIT
