@@ -123,7 +123,7 @@
 <script setup>
 import PageHead from '@/components/PageHead.vue'
 import TableSearch from '../components/TableSearch.vue'
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { deleteEmotional, getEmotionalPage } from '../api/admin';
 import { ElMessageBox } from 'element-plus';
 // 情绪映射

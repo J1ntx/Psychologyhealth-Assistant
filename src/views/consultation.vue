@@ -286,15 +286,14 @@ const sendMessage = () => {
   }
 }
 const startNewSession = async (message) => {
+  const tempSessionId = currentSession.value?.sessionId
   // 构建会话参数
   const sessionParams = {
-    initialMessage: message
-  }
-  if (currentSession.value.sessionTitle === '新对话') {
-    sessionParams.sessionTitle = `云心说AI助手-${new Date().toLocaleString()}`
-  } else {
-    // 如果是历史会话记录
-    sessionParams.sessionTitle = currentSession.value.sessionTitle
+    initialMessage: message,
+    sessionTitle:
+      currentSession.value?.status === 'TEMP'
+        ? `云心说AI助手-${new Date().toLocaleString()}`
+        : currentSession.value?.sessionTitle
   }
   const res = await startSession(sessionParams)
   // 将后端返回的数据转化为前端会话格式
@@ -303,12 +302,13 @@ const startNewSession = async (message) => {
     status: res.status,
     sessionTitle: sessionParams.sessionTitle
   }
-  // 如果当前是临时会话，更新数据
-  if (currentSession.value && currentSession.value.status === 'TEMP') {
-    // 更新为正式会话
+  if (
+    currentSession.value?.sessionId === tempSessionId &&
+    currentSession.value?.status === 'TEMP'
+  ) {
     Object.assign(currentSession.value, sessionData)
   } else {
-    currentSession.value = sessionData
+    return
   }
   //更新会话列表
   getSessonPage()
@@ -320,7 +320,7 @@ const startNewSession = async (message) => {
     createAt: new Date().toISOString()
   })
   // 开始流式对话
-  startAIResponse(currentSession.value.sessionId, message)
+  startAIResponse(sessionData.sessionId, message)
 }
 // 调用流式接口
 const controller = new AbortController()//用来终止fetch请求
@@ -421,12 +421,14 @@ const getSessonPage = async () => {
     pageNum: 1,
     pageSize: 10
   })
+  console.log(res)
   sessionList.value = res.records
 }
 // 获取会话数据
 const handleSessionClick = async (session) => {
   const res = await getSessionDetail(session.id)
   messages.value = res
+  console.log(res)
   loadSessionEmotion(session.id)
   //更新当前会话对象的数据
   const sessionData = {
