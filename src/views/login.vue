@@ -70,6 +70,7 @@ const submitForm = () => {
   ruleFormRef.value.validate((valid) => {
     if (valid) {
       login(formData.value).then(data => {
+        console.log(data)
         if (!data.token) {
           ElMessage({
             type: 'error',
