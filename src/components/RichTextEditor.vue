@@ -80,7 +80,7 @@ const props = defineProps({
 })
 
 // Emits
-const emit = defineEmits(['update:modelValue', 'change', 'created'])
+const emit = defineEmits(['update:modelValue', 'created'])
 
 // 响应式数据
 const editorRef = shallowRef()
@@ -196,14 +196,8 @@ const handleEditorCreated = (editor) => {
   
 }
 
-const handleEditorChange = (editor) => {
+const handleEditorChange = () => {
   updateCharCount()
-  
-  // 触发变更事件
-  emit('change', {
-    html: editor.getHtml(),
-    text: editor.getText()
-  })
 }
 
 const handleEditorDestroyed = () => {

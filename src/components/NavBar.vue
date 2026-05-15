@@ -29,7 +29,7 @@
 </template>
 <script setup>
 import { useAdminStore } from '../stores/admin'
-import { useRoute,useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { logout } from '../api/admin'
 const router = useRouter()

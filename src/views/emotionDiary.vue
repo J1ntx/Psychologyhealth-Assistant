@@ -13,7 +13,7 @@
         <div class="section">
           <p>您今天的整体情绪状态如何？（1-10分）</p>
           <div class="rate">
-            <el-rate v-model="diaryForm.moodScore" :texts="emotionStatus" show-texts :max="10" size="large"></el-rate>
+            <el-rate v-model="diaryForm.moodScore" :texts="emotionStatus" show-text :max="10" size="large"></el-rate>
           </div>
         </div>
       </div>

@@ -36,7 +36,7 @@
       </el-form-item>
       <el-form-item label="文章内容" prop="content">
         <RichTextEditor v-model="formData.content" placeholder="请输入文章内容，支持富文本格式\n\n可以使用加粗、斜体、列表、标题等格式来丰富文章内容"
-          :max-charCount="5000" @change="handleContentChange" @created="handleEditorCreated" min-height="400px">
+          :max-charCount="5000" @created="handleEditorCreated" min-height="400px">
         </RichTextEditor>
       </el-form-item>
     </el-form>
@@ -166,14 +166,9 @@ const handleRemove = () => {
   formData.coverImage = ''
 }
 // 富文本
-const editorInstance = ref(null)
-const handleContentChange = (data) => {
-  formData.content = data.html
-}
 const handleEditorCreated = (editor) => {
-  editorInstance.value = editor
-  // 编辑
-  if (formData.content && editor) {
+  // 编辑回显时，确保编辑器初始化后能正确载入已有内容
+  if (formData.content) {
     nextTick(() => { editor.setHtml(formData.content) })
   }
 }
